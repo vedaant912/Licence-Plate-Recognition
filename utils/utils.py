@@ -12,3 +12,15 @@ def move_files(image_folder, annotation_folder, output_dir, image_list, split):
         # move images
         shutil.move(image_path, os.path.join(output_dir, 'images',split, img))
         shutil.move(annotation_path, os.path.join(output_dir, 'annotations', split, img.replace('.png','.txt')))
+
+def convert_bbox(size, box):
+    x_min, y_min, x_max, y_max = box
+    dw = 1.0 / size[0]
+    dh = 1.0 / size[1]
+
+    x = (x_min + x_max) / 2.0 * dw
+    y = (y_min + y_max) / 2.0 * dh
+    w = (x_max - x_min) * dw
+    h = (y_max - y_min) * dh
+
+    return x, y, w, h

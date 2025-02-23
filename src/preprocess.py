@@ -19,7 +19,7 @@ import cv2
 from tqdm import tqdm
 import xml.etree.ElementTree as ET
 import random
-from utils.utils import move_files
+from utils.utils import move_files, convert_bbox
 import shutil
 
 
@@ -43,19 +43,6 @@ class Preprocess:
             blurred = cv2.GaussianBlur(gray, (5, 5,), 0)
             output_path = os.path.join(self.output_folder, img_name)
             cv2.imwrite(output_path, blurred)
-
-    def convert_bbox(self, size, box):
-
-        x_min, y_min, x_max, y_max = box
-        dw = 1.0 / size[0]
-        dh = 1.0 / size[1]
-
-        x = (x_min + x_max) / 2.0 * dw
-        y = (y_min + y_max) / 2.0 * dh
-        w = (x_max - x_min) * dw
-        h = (y_max - y_min) * dh
-
-        return x, y, w, h
 
     def xml_to_yolo_format(self, xml_folder, output_folder):
 
@@ -89,7 +76,7 @@ class Preprocess:
                 x_max = int(bbox.find('xmax').text)
                 y_max = int(bbox.find('ymax').text)
 
-                x, y, w, h = self.convert_bbox((width, height), (x_min, y_min, x_max, y_max))
+                x, y, w, h = convert_bbox((width, height), (x_min, y_min, x_max, y_max))
                 yolo_annotations.append(f"{cls_id} {x: .6f} {y: .6f} {w: .6f} {h: .6f}")
 
             with open(os.path.join(output_folder, f"{image_name}.txt"), "w") as f:
