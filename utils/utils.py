@@ -1,5 +1,7 @@
 import os
 import shutil
+from pathlib import Path
+import yaml
 
 def move_files(image_folder, annotation_folder, output_dir, image_list, split):
 
@@ -24,3 +26,16 @@ def convert_bbox(size, box):
     h = (y_max - y_min) * dh
 
     return x, y, w, h
+
+def read_yaml(path_to_yamnl: Path):
+
+    try:
+        with open(path_to_yamnl, 'r') as yaml_file:
+            content = yaml.safe_load(yaml_file)
+            return content
+    except FileNotFoundError as e:
+            raise e
+    
+if __name__ == '__main__':
+     
+     print(read_yaml('./params.yaml'))

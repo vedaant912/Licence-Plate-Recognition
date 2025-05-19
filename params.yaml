@@ -1,0 +1,27 @@
+# dataset
+dataset:
+  path: 'dataset/inputs'
+  train: 'images/train'
+  val: 'images/valid'
+  annotations: 'annotations/'
+  nc: 1
+  names: ["licence"]
+
+# model
+model:
+  type: 'yolov8s.pt'
+ 
+# training parameters
+training:
+  epochs: 50                  # Number of epochs
+  img_size: 640               # Image size
+  batch_size: 16              # Batch size
+  device: "cuda"              # Device for training (cuda for GPU, cpu for CPU)
+  workers: 4                  # Number of workers for data loading
+  project: "yolo_training"    # Directory to store the training results
+  name: "license_plate_model" # Name of the model
+
+# Learning rate and other parameters
+hyperparameters:
+  optimizer: "AdamW"        # Optimizer type
+  lr: 0.001               # Learning rate

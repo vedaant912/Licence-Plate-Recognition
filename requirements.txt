@@ -1,1 +1,6 @@
 tqdm
+ultralytics
+pyyaml
+streamlit
+opencv-python
+pytesseract

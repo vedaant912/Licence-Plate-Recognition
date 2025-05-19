@@ -1,7 +1,6 @@
-train_images: dataset/images/train/
-train_annotations: dataset/annotations/train
-val_images: dataset/images/val/
-val_annotations: dataset/annotations/val
-
-nc : 1
-names: ['licence']
+names:
+- licence
+nc: 1
+path: dataset/inputs
+train: images/train
+val: images/valid
